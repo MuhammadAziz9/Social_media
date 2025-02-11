@@ -1,0 +1,70 @@
+/* Sahifa full-screen bo‘lishi uchun */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to right, #4facfe, #00f2fe); /* Gradient background */
+}
+
+/* Login sahifasi markazga joylashishi uchun */
+.login-container {
+    height: 100vh;
+}
+
+/* Login box */
+.login-box {
+    width: 900px;
+    max-width: 90%;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* Chap tomondagi rasm */
+.login-image {
+    width: 50%;
+}
+
+.login-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* O'ng tomondagi forma */
+.login-form {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Tugmalar va matn */
+.btn-primary {
+    background: #007bff;
+    border: none;
+    padding: 10px;
+}
+
+.btn-primary:hover {
+    background: #0056b3;
+}
+
+/* Mobil uchun moslashtirish */
+@media (max-width: 768px) {
+    .login-box {
+        flex-direction: column;
+        width: 100%;
+        max-width: 400px;
+    }
+
+    .login-image {
+        display: none;
+    }
+
+    .login-form {
+        width: 100%;
+        padding: 20px;
+    }
+}
+
