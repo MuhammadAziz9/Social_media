@@ -33,13 +33,15 @@
                     {{ form|crispy }}
                     <button type="submit" class="btn btn-primary w-100">Kirish</button>
                 </form>
-
-                <hr>
-
+                <div class="text-center mt-2">
+                    <a href="{% url 'register' %}" class="btn btn-outline-primary w-100">Ro‘yxatdan o‘tish</a>
+                </div>
+    
                 <div class="text-center mt-3">
-                    <p>Accountingiz yo‘qmi?</p>
-                    <a href="#" class="btn btn-outline-primary w-100">Ro‘yxatdan o‘tish</a>
-                </div>                
+                    <a href="{% url 'password_reset' %}" >
+                        Parolni unutdingizmi?
+                    </a>
+                </div>               
             </div>
 
         </div>
