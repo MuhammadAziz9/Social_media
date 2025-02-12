@@ -1,6 +1,68 @@
 {% extends 'base.html' %}
+
 {% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <nav class="col-md-4 col-lg-3 d-md-block bg-light sidebar">
+            <div class="position-sticky pt-3">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">📌 Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">👥 Friends</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">🛒 Marketplace</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">💾 Saved</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
 
-<h3>Assalomu alaykum</h3>
+        <!-- Main Section -->
+        <main class="col-md-8 col-lg-9 ms-sm-auto px-md-4" >
+            <h2 class="my-4" style="text-align: center;">Hozirgi Postlar</h2>
+            
+            <!-- Post 1 -->
+            <div class="card mb-3 mx-auto" style="max-width: 600px;">
+                <div class="card-body">
+                    <h5 class="card-title">Foydalanuvchi nomi</h5>
+                    <p class="card-text">Bu yerda post matni joylashadi...</p>
+                    <img src="https://via.placeholder.com/500" class="img-fluid rounded" style="max-height: 300px; object-fit: cover;" alt="Post Image">
+                    <div class="mt-2">
+                        <button class="btn btn-light">👍 Like</button>
+                        <button class="btn btn-light">💬 Comment</button>
+                        <button class="btn btn-light">🔄 Share</button>
+                        <button class="btn btn-light">💾 Save</button>
+                    </div>
+                </div>
+            </div>
 
-{% endblock content %}
+            <!-- Post 2 (Video) -->
+            <div class="card mb-3 mx-auto" style="max-width: 600px;">
+                <div class="card-body">
+                    <h5 class="card-title">Boshqa foydalanuvchi</h5>
+                    <p class="card-text">Bu post matni ham juda qiziqarli!</p>
+                    <div class="ratio ratio-16x9">
+                        <video class="img-fluid rounded" style="max-height: 300px; object-fit: cover;" controls>
+                            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="mt-2">
+                        <button class="btn btn-light">👍 Like</button>
+                        <button class="btn btn-light">💬 Comment</button>
+                        <button class="btn btn-light">🔄 Share</button>
+                        <button class="btn btn-light">💾 Save</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+{% endblock %}
+
+
