@@ -156,7 +156,7 @@
 
             <!-- SAVE -->
             <div class="post-action">
-                <form action="" method="POST">
+                <form action="{% url 'toggle_save' post.id %}" method="POST">
                     {% csrf_token %}
                     <button type="submit" class="save-btn"><i class="fa-solid fa-bookmark"></i></button>
                 </form>
