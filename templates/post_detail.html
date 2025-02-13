@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}{{ post.title }}{% endblock %}
+
+
+{% block content %}
+<style>
+        .image-container {
+        width: 100%;
+        max-height: 400px;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+
+    .video-container {
+        width: 100%;
+        max-height: 400px;
+        object-fit: contain; /* Qirqilmasligi uchun */
+        background-color: black;
+        border-radius: 10px;
+    }
+</style>
+<div class="card shadow-sm mt-4">
+    <div class="card-body">
+        <h2 class="card-title">{{ post.title }}</h2>
+        <p class="text-muted">Muallif: <strong>{{ post.user.username }}</strong> | {{ post.created_at|date:"d-m-Y H:i" }}</p>
+
+        <!-- Rasm yoki video -->
+        {% if post.image %}
+            <img src="{{ post.image.url }}" class="img-fluid rounded mb-3 image-container" alt="Post image">
+        {% elif post.video %}
+            <video controls class="w-100 video-container">
+                <source src="{{ post.video.url }}" type="video/mp4">
+                Brauzeringiz videoni qo‘llab-quvvatlamaydi.
+            </video>
+        {% endif %}
+
+        <p class="card-text mt-3">{{ post.title }}</p>
+
+        <hr>
+
+        <!-- Commentlar -->
+        <h4>Izohlar ({{ comments.count }})</h4>
+        <ul class="list-group mb-3">
+            {% for comment in comments %}
+                <li class="list-group-item">
+                    <strong>{{ comment.user.username }}</strong> - {{ comment.created_at|date:"d-m-Y H:i" }}  
+                    <p>{{ comment.text }}</p>
+                    <hr>
+                </li>
+            {% empty %}
+                <li class="list-group-item text-muted">Hozircha izohlar yo‘q.</li>
+            {% endfor %}
+        </ul>
+
+        <!-- Comment qo‘shish formasi -->
+            <h5>Izoh qoldirish:</h5>
+            <form method="POST">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <button type="submit" class="btn btn-primary mt-2">Yuborish</button>
+            </form>
+            <div class="text-center mt-4 mb-4">
+                <a href="{% url 'home' %}" class="btn btn-secondary">⬅️ Ortga</a>
+            </div>
+    </div>
+</div>
+{% endblock %}

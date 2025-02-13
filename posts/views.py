@@ -4,6 +4,7 @@ from .models import Post,Comment,Like,Share,Save,Friendship
 from django.http import HttpResponse
 from django.db import models
 from accounts.models import CustomUser
+from .forms import CommentForm
 # Create your views here.
 
 def home(request):
@@ -26,23 +27,32 @@ def toggle_like(request, post_id):
         Like.objects.create(user=request.user, post=post)
 
 
-    return redirect('home')
+    return redirect('post_detail',post_id=post.id)
 
-@login_required
-def toggle_friend(request, user_id):
-    other_user = get_object_or_404(CustomUser, id=user_id)
-    
-    if request.user != other_user:
-        friendship = Friendship.objects.filter(
-            (models.Q(user1=request.user, user2=other_user) | models.Q(user1=other_user, user2=request.user))
-        )
+def toggle_share(request,post_id):
+    post = get_object_or_404(Post,id=post_id)
+    Share.objects.create(post=post,user=request.user)
+    return redirect('post_detail',post_id=post.id)
 
-        if friendship.exists():
-            friendship.delete()
-        else:
-            Friendship.objects.create(user1=request.user, user2=other_user)
-
-    return redirect('home')
+def post_detail(request,post_id):
+    post = get_object_or_404(Post,id=post_id)
+    comments = post.comments.all()
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = post
+            comment.user = request.user
+            comment.save()
+            return redirect('post_detail',post_id=post.id)
+    else:
+        form = CommentForm()
+    context = {
+        'comments':comments,
+        'form':form,
+        'post':post
+    }
+    return render(request,'post_detail.html',context)
 
 
 
