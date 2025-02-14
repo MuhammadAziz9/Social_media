@@ -168,7 +168,7 @@
                     <img src="{{user.image.url}}" class="profile-img">
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end shadow">
-                    <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i> Profil</a></li>
+                    <li><a class="dropdown-item" href="{% url 'profile' user.username %}"><i class="fas fa-user me-2"></i> Profil</a></li>
                     <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i> Sozlamalar</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item text-danger" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt me-2"></i> Chiqish</a></li>
@@ -184,12 +184,12 @@
         <!-- Sidebar -->
         <nav class="sidebar">
             <ul class="nav flex-column">
-                <li class="nav-item"><a class="nav-link" href="#">📌 {{user.username}}</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'profile' user.username  %}">📌 {{user.username}}</a></li>
                 <li class="nav-item"><a class="nav-link" href="#">👥 Friends</a></li>
                 <li class="nav-item"><a class="nav-link" href="#">🛒 Marketplace</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'saved_post' %}">💾 Saved</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">❤️ Liked</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">➕Add Post</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'liked_post' %}">❤️ Liked</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'add_post' %}">➕Add Post</a></li>
             </ul>
         </nav>
 
