@@ -70,6 +70,33 @@ def post_detail(request,post_id):
     }
     return render(request,'post_detail.html',context)
 
+
+def delete_comment(request, comment_id):
+    comment = get_object_or_404(Comment, id=comment_id)
+    post_id = comment.post.id  # Fikr tegishli bo‘lgan post ID sini olish
+
+    if comment.user == request.user:
+        comment.delete()
+    
+    return redirect('post_detail', post_id=post_id)  # post_detail sahifasiga qaytish
+
+def edit_comment(request, comment_id):
+    comment = get_object_or_404(Comment, id=comment_id)
+
+    if comment.user != request.user:
+        return redirect('post_detail', post_id=comment.post.id)  # Faqat egasi tahrirlashi mumkin
+
+    if request.method == "POST":
+        form = CommentForm(request.POST, instance=comment)
+        if form.is_valid():
+            form.save()
+            return redirect('post_detail', post_id=comment.post.id)
+    else:
+        form = CommentForm(instance=comment)
+
+    return render(request, 'edit_comment.html', {'form': form, 'comment': comment})
+
+
 def toggle_save(request,post_id):
     post =get_object_or_404(Post,id=post_id)
     saved_post,created = Save.objects.get_or_create(user=request.user,post=post)

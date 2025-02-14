@@ -2,41 +2,36 @@
 {% load crispy_forms_tags %}
 {% block title %}{{ post.title }}{% endblock %}
 
-
 {% block content %}
 <style>
-        .image-container {
+    .media-container {
         width: 100%;
         max-height: 400px;
-        object-fit: cover;
+        object-fit: contain;
         border-radius: 10px;
-    }
-
-    .video-container {
-        width: 100%;
-        max-height: 400px;
-        object-fit: contain; /* Qirqilmasligi uchun */
-        background-color: black;
-        border-radius: 10px;
+        display: block;
+        margin: 0 auto;
     }
 </style>
+
 <div class="card shadow-sm mt-4">
     <div class="card-body">
-        <h2 class="card-title">{{ post.title }}</h2>
+        <div class="d-flex justify-content-between align-items-center">
+            <h2 class="card-title">{{ post.title }}</h2>
+        </div>
         <p class="text-muted">Muallif: <strong>{{ post.user.username }}</strong> | {{ post.created_at|date:"d-m-Y H:i" }}</p>
 
         <!-- Rasm yoki video -->
         {% if post.image %}
-            <img src="{{ post.image.url }}" class="img-fluid rounded mb-3 image-container" alt="Post image">
+            <img src="{{ post.image.url }}" class="img-fluid media-container" alt="Post image">
         {% elif post.video %}
-            <video controls class="w-100 video-container">
+            <video controls class="media-container">
                 <source src="{{ post.video.url }}" type="video/mp4">
                 Brauzeringiz videoni qo‘llab-quvvatlamaydi.
             </video>
         {% endif %}
 
-        <p class="card-text mt-3">{{ post.title }}</p>
-
+        <p class="card-text mt-3">{{ post.content }}</p>
         <hr>
 
         <!-- Commentlar -->
@@ -44,9 +39,19 @@
         <ul class="list-group mb-3">
             {% for comment in comments %}
                 <li class="list-group-item">
-                    <strong>{{ comment.user.username }}</strong> - {{ comment.created_at|date:"d-m-Y H:i" }}  
+                    <div class="d-flex justify-content-between">
+                        <strong>{{ comment.user.username }}</strong> 
+                        <small class="text-muted">{{ comment.created_at|date:"d-m-Y H:i" }}</small>
+                    </div>
                     <p>{{ comment.text }}</p>
-                    <hr>
+
+                    {% if comment.user == request.user %}
+                        <div class="d-flex justify-content-end">
+                            <a href="{% url 'edit_comment' comment.id %}" class="btn btn-sm btn-warning">✏️</a>
+                            <a href="{% url 'delete_comment' comment.id %}" class="btn btn-sm btn-danger"
+                               onclick="return confirm('Ushbu izohni o‘chirmoqchimisiz?');">🗑️</a>
+                        </div>
+                    {% endif %}
                 </li>
             {% empty %}
                 <li class="list-group-item text-muted">Hozircha izohlar yo‘q.</li>
@@ -54,15 +59,18 @@
         </ul>
 
         <!-- Comment qo‘shish formasi -->
-            <h5>Izoh qoldirish:</h5>
-            <form method="POST">
-                {% csrf_token %}
-                {{ form|crispy }}
-                <button type="submit" class="btn btn-primary mt-2">Yuborish</button>
-            </form>
-            <div class="text-center mt-4 mb-4">
-                <a href="{% url 'home' %}" class="btn btn-secondary">⬅️ Ortga</a>
-            </div>
+        <h5>Izoh qoldirish:</h5>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button type="submit" class="btn btn-primary mt-2">Yuborish</button>
+        </form>
+        
+        <div class="text-center mt-4 mb-4">
+            <a href="{% url 'home' %}" class="btn btn-secondary">⬅️ Ortga</a>
+        </div>
     </div>
 </div>
 {% endblock %}
+
+
