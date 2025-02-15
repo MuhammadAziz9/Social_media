@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     #internal
     'accounts',
     'posts',
+    'group',
 
     #external
     'crispy_forms',

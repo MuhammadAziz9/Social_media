@@ -134,7 +134,7 @@
             <a href="#" class="btn btn-light nav-icon" data-bs-toggle="tooltip" title="Marketplace">
                 <i class="fas fa-store"></i>
             </a>
-            <a href="#" class="btn btn-light nav-icon" data-bs-toggle="tooltip" title="Guruhlar">
+            <a href="{% url 'group_list' %}" class="btn btn-light nav-icon" data-bs-toggle="tooltip" title="Guruhlar">
                 <i class="fas fa-users"></i>
             </a>
         </div>
@@ -188,6 +188,7 @@
                 <li class="nav-item"><a class="nav-link" href="{% url 'friends' %}">👥 Do'stlar</a></li>
                 <li class="nav-item"><a class="nav-link" href="">🛒 Marketplace</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'saved_post' %}">💾 Saved</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'group_list' %}">⏳Guruhlar</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'liked_post' %}">❤️ Liked</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'add_post' %}">➕Add Post</a></li>
             </ul>
