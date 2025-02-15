@@ -125,7 +125,7 @@
             <a href="{% url 'home' %}" class="btn btn-light nav-icon" data-bs-toggle="tooltip" title="Asosiy sahifa">
                 <i class="fas fa-home"></i>
             </a>
-            <a href="#" class="btn btn-light nav-icon" data-bs-toggle="tooltip" title="Do‘stlar">
+            <a href="{% url 'friends' %}" class="btn btn-light nav-icon" data-bs-toggle="tooltip" title="Do‘stlar">
                 <i class="fas fa-user-friends"></i>
             </a>
             <a href="#" class="btn btn-light nav-icon" data-bs-toggle="tooltip" title="Video">
@@ -185,8 +185,8 @@
         <nav class="sidebar">
             <ul class="nav flex-column">
                 <li class="nav-item"><a class="nav-link" href="{% url 'profile' user.username  %}">📌 {{user.username}}</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">👥 Friends</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">🛒 Marketplace</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'friends' %}">👥 Do'stlar</a></li>
+                <li class="nav-item"><a class="nav-link" href="">🛒 Marketplace</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'saved_post' %}">💾 Saved</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'liked_post' %}">❤️ Liked</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'add_post' %}">➕Add Post</a></li>

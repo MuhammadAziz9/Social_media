@@ -19,7 +19,7 @@
     {% for saved in saved_posts %}
     <div class="card mb-3 mx-auto" style="max-width: 600px;">
         <div class="card-body">
-            <h5 class="card-title">{{ saved.post.user }}</h5>
+            <a class="card-title"  href="{% url 'profile' saved.post.user.username %}">{{ saved.post.user }}</a>
             <p class="card-text">{{ saved.post.title }}</p>
 
             {% if saved.post.image %}

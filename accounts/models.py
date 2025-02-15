@@ -9,4 +9,17 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return self.username
+    
+class FriendShip(models.Model):
+    user = models.ForeignKey(CustomUser,on_delete=models.CASCADE,related_name='friends')
+    friend = models.ForeignKey(CustomUser,on_delete=models.CASCADE,related_name='friend_of')
+    created_at = models.DateField(auto_now=True)
+
+    class Meta:
+        unique_together = ('user','friend')
+
+    def __str__(self):
+        return f"{self.user.username} followed {self.friend.username}"
+    
+
 

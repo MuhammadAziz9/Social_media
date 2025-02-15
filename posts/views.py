@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Post,Comment,Like,Share,Save
 from .forms import CommentForm,PostForm
 from django.http import HttpResponseRedirect
-from accounts.models import CustomUser
+from accounts.models import CustomUser,FriendShip
 # Create your views here.
 
 def home(request):
@@ -128,10 +128,12 @@ def liked_post(request):
 def profile(request,username):
     user = get_object_or_404(CustomUser,username=username)
     user_posts = Post.objects.filter(user=user).order_by('-created_at')
+    is_friend = FriendShip.objects.filter(user=request.user, friend=user).exists()
 
     context = {
         'user_profile':user,
-        'user_posts':user_posts
+        'user_posts':user_posts,
+        'is_friend':is_friend
     }
     return render(request,'profile.html',context)
 
@@ -159,6 +161,32 @@ def edit_post(request,post_id):
         'post':post
     }
     return render(request,'edit_post.html',context)
+
+@login_required
+def add_friend(request, username):
+    friend = get_object_or_404(CustomUser, username=username)  # Username orqali foydalanuvchini olish
+
+    # Do‘stlik mavjudligini tekshirish
+    if not FriendShip.objects.filter(user=request.user, friend=friend).exists():
+        FriendShip.objects.create(user=request.user, friend=friend)
+
+    return redirect('profile', username=username)
+
+@login_required
+def remove_friend(request, username):
+    friend = get_object_or_404(CustomUser, username=username)  # Username orqali foydalanuvchini olish
+
+    # Agar do‘stlik mavjud bo‘lsa, o‘chirish
+    FriendShip.objects.filter(user=request.user, friend=friend).delete()
+
+    return redirect('profile', username=username)
+
+def friends_view(request):
+    friends = FriendShip.objects.filter(user=request.user)
+    context = {
+        'friends':friends
+    }
+    return render(request,'friends.html',context=context)
 
 
 

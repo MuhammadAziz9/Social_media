@@ -21,7 +21,7 @@
     {% for liked in liked_posts %}
     <div class="card mb-3 mx-auto" style="max-width: 600px;">
         <div class="card-body">
-            <h5 class="card-title">{{ liked.post.user }}</h5>
+            <a class="card-title"  href="{% url 'profile' liked.post.user.username %}">{{ liked.post.user }}</a>
             <p class="card-text">{{ liked.post.title }}</p>
 
             {% if liked.post.image %}

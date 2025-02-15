@@ -3,6 +3,7 @@ from . import views
 
 
 urlpatterns = [
+    
     path('',views.home,name='home'),
     path('like/<int:post_id>/',views.toggle_like,name='toggle_like'),
     path('post/<int:post_id>/',views.post_detail,name='post_detail'),
@@ -17,6 +18,8 @@ urlpatterns = [
     path('edit_post/<int:post_id>/',views.edit_post,name='edit_post'),
     path('delete-comment/<int:comment_id>/', views.delete_comment, name='delete_comment'),
     path('edit-comment/<int:comment_id>/', views.edit_comment, name='edit_comment'),
-
+    path('add_friend/<str:username>/',views.add_friend,name='add_friend'),
+    path('remove_friend/<str:username>/',views.remove_friend,name='remove_friend'),
+    path('friends/',views.friends_view,name='friends')
 
 ]
