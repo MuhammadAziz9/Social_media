@@ -128,12 +128,6 @@
             <a href="{% url 'friends' %}" class="btn btn-light nav-icon" data-bs-toggle="tooltip" title="Do‘stlar">
                 <i class="fas fa-user-friends"></i>
             </a>
-            <a href="#" class="btn btn-light nav-icon" data-bs-toggle="tooltip" title="Video">
-                <i class="fas fa-tv"></i>
-            </a>
-            <a href="#" class="btn btn-light nav-icon" data-bs-toggle="tooltip" title="Marketplace">
-                <i class="fas fa-store"></i>
-            </a>
             <a href="{% url 'group_list' %}" class="btn btn-light nav-icon" data-bs-toggle="tooltip" title="Guruhlar">
                 <i class="fas fa-users"></i>
             </a>
@@ -141,12 +135,6 @@
 
         <!-- Profil, Bildirishnomalar va Menu -->
         <div class="d-flex align-items-center">
-            <a href="#" class="nav-icon" data-bs-toggle="tooltip" title="Menyu">
-                <i class="fas fa-th"></i>
-            </a>
-            <a href="#" class="nav-icon" data-bs-toggle="tooltip" title="Xabarlar">
-                <i class="fab fa-facebook-messenger"></i>
-            </a>
 
             <!-- Bildirishnomalar -->
             <div class="dropdown">
@@ -169,7 +157,7 @@
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end shadow">
                     <li><a class="dropdown-item" href="{% url 'profile' user.username %}"><i class="fas fa-user me-2"></i> Profil</a></li>
-                    <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i> Sozlamalar</a></li>
+                    <li><a class="dropdown-item" href="{% url 'password_change' %}"><i class="fas fa-cog me-2"></i> Prolni o'zgartirish</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item text-danger" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt me-2"></i> Chiqish</a></li>
                 </ul>
@@ -186,7 +174,6 @@
             <ul class="nav flex-column">
                 <li class="nav-item"><a class="nav-link" href="{% url 'profile' user.username  %}">📌 {{user.username}}</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'friends' %}">👥 Do'stlar</a></li>
-                <li class="nav-item"><a class="nav-link" href="">🛒 Marketplace</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'saved_post' %}">💾 Saved</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'group_list' %}">⏳Guruhlar</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'liked_post' %}">❤️ Liked</a></li>

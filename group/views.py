@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect,get_object_or_404
-from .models import Group,GroupMember
+from .models import Group,GroupMember,GroupMessage
 from.forms import GroupForm
 
 # Create your views here.
@@ -10,6 +10,20 @@ def group_list(request):
         'groups':groups
     }
     return render(request,'group/groups.html',context=context)
+
+
+def group_detail(request, group_id):
+    group = get_object_or_404(Group, id=group_id)
+    messages = GroupMessage.objects.filter(group=group).order_by('created_at')
+
+    if request.method == "POST":
+        text = request.POST.get("message-text")
+        if text:
+            GroupMessage.objects.create(group=group, sender=request.user, text=text)
+            return redirect('group_detail', group_id=group.id)  # Yangi xabar qo‘shilgandan keyin sahifani qayta yuklash
+
+    return render(request, 'group/group_detail.html', {'group': group, 'messages': messages})
+
 
 def create_group(request):
     if request.method == 'POST':

@@ -23,3 +23,12 @@ class GroupMember(models.Model):
 
     def __str__(self):
         return self.group
+    
+class GroupMessage(models.Model):
+    sender = models.ForeignKey(CustomUser,on_delete=models.CASCADE)
+    group = models.ForeignKey(Group,on_delete=models.CASCADE)
+    text = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.sender} texted {self.text}"

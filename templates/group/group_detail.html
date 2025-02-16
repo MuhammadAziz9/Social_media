@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <!-- Guruh Bosh Paneli -->
+    <div class="card">
+        <div class="card-body d-flex align-items-center">
+            <img src="{{ group.image.url }}" class="rounded-circle me-3" width="50" height="50" alt="Group Avatar" style="object-fit: cover;">
+            <div>
+                <h4 class="m-0">{{ group.name }}</h4>
+                <small class="text-muted">{{ group.members.count }} members</small>
+            </div>
+            <div class="ms-auto">
+                {% if user in group.members.all %}
+                    <a class="btn btn-danger btn-sm" href="{% url 'leave_group'  %}">Leave</a>
+                {% else %}
+                    <a href="{% url 'join_group' group.id %}" class="btn btn-primary btn-sm">Join</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Chat Oynasi -->
+    <div class="chat-box mt-3 p-3 border rounded" style="height: 400px; overflow-y: auto; background: #f8f9fa;">
+        {% for message in messages %}
+            <div class="d-flex {% if message.sender == user %}justify-content-end{% else %}justify-content-start{% endif %} mb-2">
+                <div class="message p-2 rounded {% if message.sender == user %}bg-primary text-white{% else %}bg-light{% endif %}" 
+                     style="max-width: 60%; border-radius: 15px;">
+                    <small class="d-block text-muted">{{ message.sender.username }}</small>
+                    {{ message.text }}
+                    <div class="text-muted small text-end mt-1">{{ message.created_at|date:"H:i" }}</div>
+                </div>
+            </div>
+        {% empty %}
+            <p class="text-center text-muted">No messages yet.</p>
+        {% endfor %}
+    </div>
+
+<!-- Xabar Yozish -->
+<div class="mt-3">
+    <form method="POST" action="{% url 'group_detail' group.id %}" class="d-flex">
+        {% csrf_token %}
+        <input type="text" name="message-text" class="form-control me-2" placeholder="Type a message..." required>
+        <button class="btn btn-primary" type="submit">Send</button>
+    </form>
+</div>
+
+</div>
+{% endblock %}
+
